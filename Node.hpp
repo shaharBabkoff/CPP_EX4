@@ -2,6 +2,7 @@
 #define NODE_HPP
 
 #include <vector>
+#include <iostream>
 
 template <typename T>
 class Node
@@ -30,11 +31,14 @@ public:
     // {
     //     children_.clear();
     // }
-
+ void clearChildren()
+    {
+        children_.clear();
+    }
     void addChild(Node<T> *child)
     {
         children_.push_back(child);
-        std::cout << "Added child with value: " << child->getValue() << " to parent with value: " << value << std::endl;
+        //std::cout << "Added child with value: " << child->getValue() << " to parent with value: " << value << std::endl;
     }
     int getCurrentChildrenNum() const
     {

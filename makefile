@@ -5,7 +5,7 @@ CXXFLAGS=-std=c++17 -Wall
 SFML_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-SOURCES=Tree.cpp Node.cpp 
+SOURCES=Tree.cpp Node.cpp Complex.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
 
 run: demo
@@ -29,3 +29,6 @@ valgrind: demo test
 
 clean:
 	rm -f *.o demo test
+
+
+

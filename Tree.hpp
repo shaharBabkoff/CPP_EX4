@@ -125,12 +125,12 @@ public:
     }
     void add_sub_node(Node<T> &parent, Node<T> &child)
     {
-        std::cout << "current children: " << parent.getCurrentChildrenNum() << " K=" << K << std::endl;
+        //std::cout << "current children: " << parent.getCurrentChildrenNum() << " K=" << K << std::endl;
         if (parent.getCurrentChildrenNum() < K)
         {
 
             parent.addChild(&child); // Now correctly adds the new node
-            std::cerr << "add_sub_node succesfully" << std::endl;
+            //std::cerr << "add_sub_node succesfully" << std::endl;
         }
         else
         {
@@ -167,7 +167,7 @@ public:
             return stack_ == other.stack_;
         }
 
-        PreOrderIterator &operator++()
+        const PreOrderIterator &operator++()
         {
             if (stack_.empty())
             {
@@ -220,7 +220,7 @@ public:
             return !outputStack.empty();
         }
 
-        PostOrderIterator &operator++()
+        const PostOrderIterator &operator++()
         {
             if (!outputStack.empty())
             {
@@ -267,7 +267,7 @@ public:
             return !nodeStack.empty();
         }
 
-        InOrderIterator &operator++()
+        const InOrderIterator &operator++()
         {
             if (!nodeStack.empty())
             {
@@ -306,7 +306,7 @@ public:
             return !nodeQueue.empty();
         }
 
-        BFSIterator &operator++()
+        const BFSIterator &operator++()
         {
             if (!nodeQueue.empty())
             {
@@ -344,7 +344,7 @@ public:
             return !nodeStack.empty();
         }
 
-        DFSIterator &operator++()
+        const DFSIterator &operator++()
         {
             if (!nodeStack.empty())
             {
@@ -399,7 +399,7 @@ public:
             return currentIndex < heap.size();
         }
 
-        HeapIterator &operator++()
+        const HeapIterator &operator++()
         {
             if (currentIndex < heap.size())
             {
@@ -416,47 +416,50 @@ public:
         }
     };
 
-    // void myHeap(PreOrderIterator begin, PreOrderIterator end) {
-    // // Step 1: Collect nodes in pre-order traversal
-    // std::vector<Node<T>*> nodes;
-    // for (auto it = begin; it != end; ++it) {
-    // nodes.push_back(*it);
-    // }
+    void myHeap()
+    {
+        if (!root_)
+            return;
 
-    // // Step 2: Convert vector into a min-heap using std::make_heap
-    // std::make_heap(nodes.begin(), nodes.end(), [](Node<T>* a, Node<T>* b) {
-    // return a->getValue() > b->getValue(); // min-heap based on node values
-    // });
+        std::vector<Node<T> *> nodes;
+        std::queue<Node<T> *> q;
+        q.push(root_);
 
-    // // Step 3: Convert the binary tree into a min-heap
-    // // Replace the current tree structure with the min-heap structure
-    // // Assuming the root is at index 0 after std::make_heap
-    // root_ = nodes.empty() ? nullptr : nodes[0];
+        while (!q.empty())
+        {
+            Node<T> *current = q.front();
+            q.pop();
+            nodes.push_back(current);
 
-    // // Update child-parent relationships
-    // for (size_t i = 0; i < nodes.size(); ++i) {
-    // size_t leftChildIndex = 2 * i + 1;
-    // size_t rightChildIndex = 2 * i + 2;
-    // if (leftChildIndex < nodes.size()) {
-    // nodes[i]->addChild(nodes[leftChildIndex]);
-    // }
-    // if (rightChildIndex < nodes.size()) {
-    // nodes[i]->addChild(nodes[rightChildIndex]);
-    // }
-    // }
-    // }
-    // HeapIterator begin_heap()
-    // {
-    // return HeapIterator(root_);
-    // }
+            for (Node<T> *child : current->getChildren())
+            {
+                q.push(child);
+            }
+        }
 
-    // HeapIterator end_heap()
-    // {
-    //     return HeapIterator(nullptr);
-    // }
+        std::make_heap(nodes.begin(), nodes.end(), [](Node<T> *a, Node<T> *b)
+                       { return a->getValue() > b->getValue(); });
 
+        root_ = nodes.empty() ? nullptr : nodes.front();
+
+        for (size_t i = 0; i < nodes.size(); ++i)
+        {
+            size_t leftChildIndex = 2 * i + 1;
+            size_t rightChildIndex = 2 * i + 2;
+
+            nodes[i]->clearChildren();
+            if (leftChildIndex < nodes.size())
+            {
+                nodes[i]->addChild(nodes[leftChildIndex]);
+            }
+            if (rightChildIndex < nodes.size())
+            {
+                nodes[i]->addChild(nodes[rightChildIndex]);
+            }
+        }
+    }
     // Method to begin Pre-Order traversal based on K value
-    auto begin_pre_order()
+    auto begin_pre_order() const
     {
         if constexpr (K == 2)
         {
@@ -469,7 +472,7 @@ public:
     }
 
     // Method to end Pre-Order traversal based on K value
-    auto end_pre_order()
+    auto end_pre_order() const
     {
         if constexpr (K == 2)
         {
@@ -482,7 +485,7 @@ public:
     }
 
     // Method to begin Post-Order traversal based on K value
-    auto begin_post_order()
+    auto begin_post_order() const
     {
         if constexpr (K == 2)
         {
@@ -495,7 +498,7 @@ public:
     }
 
     // Method to end Post-Order traversal based on K value
-    auto end_post_order()
+    auto end_post_order() const
     {
         if constexpr (K == 2)
         {
@@ -508,7 +511,7 @@ public:
     }
 
     // Method to begin In-Order traversal based on K value
-    auto begin_in_order()
+    auto begin_in_order() const
     {
         if constexpr (K == 2)
         {
@@ -521,7 +524,7 @@ public:
     }
 
     // Method to end In-Order traversal based on K value
-    auto end_in_order()
+    auto end_in_order() const
     {
         if constexpr (K == 2)
         {
@@ -533,64 +536,35 @@ public:
         }
     }
 
-    BFSIterator begin_bfs_scan()
+    BFSIterator begin_bfs_scan() const
     {
         return BFSIterator(root_);
     }
 
-    BFSIterator end_bfs_scan()
+    BFSIterator end_bfs_scan() const
     {
         return BFSIterator(nullptr); // End iterator with empty queue
     }
-    DFSIterator begin_dfs_scan()
+    DFSIterator begin_dfs_scan() const
     {
         return DFSIterator(root_);
     }
 
-    DFSIterator end_dfs_scan()
+    DFSIterator end_dfs_scan() const
     {
         return DFSIterator(nullptr); // End iterator with empty stack
     }
 
     // Default iterator for range-based for loops (BFS)
-    BFSIterator begin()
+    BFSIterator begin() const
     {
         return begin_bfs_scan();
     }
 
-    BFSIterator end()
+    BFSIterator end() const
     {
         return end_bfs_scan();
     }
-    void myHeap(auto begin, auto end)
-    {
-        std::vector<Node<T> *> nodes;
-        for (auto it = begin; it != end; ++it)
-        {
-            nodes.push_back(*it);
-        }
-
-        std::make_heap(nodes.begin(), nodes.end(), [](Node<T> *a, Node<T> *b)
-                       { return a->getValue() > b->getValue(); });
-
-        root_ = nodes.empty() ? nullptr : nodes[0];
-
-        for (size_t i = 0; i < nodes.size(); ++i)
-        {
-            nodes[i]->clearChildren();
-            size_t leftChildIndex = 2 * i + 1;
-            size_t rightChildIndex = 2 * i + 2;
-            if (leftChildIndex < nodes.size())
-            {
-                nodes[i]->addChild(nodes[leftChildIndex]);
-            }
-            if (rightChildIndex < nodes.size())
-            {
-                nodes[i]->addChild(nodes[rightChildIndex]);
-            }
-        }
-    }
-
     HeapIterator begin_heap()
     {
         return HeapIterator(root_);
