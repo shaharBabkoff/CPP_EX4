@@ -1,32 +1,24 @@
+//id:324207935 email:shbabkoff123@gmail.com
 #include "Complex.hpp"
 using namespace std;
 
-Complex::Complex(double re=0, double im=0)
+Complex::Complex(double re = 0, double im = 0)
 {
-    _re = re;
-    _im = im;
+    real_ = re;
+    image_ = im;
+}
+ 
+double Complex::getReal() const
+{
+    return real_;
 }
 
-Complex &Complex::setReal(double r)
+double Complex::getImage() const
 {
-    _re = r;
-    return *this;
+    return image_;
 }
 
-Complex &Complex::setImag(double i)
+bool Complex::operator>(const Complex &other) const
 {
-    _im = i;
-    return *this;
-}
-
-// Complex &Complex::add(const Complex &c)
-// {
-//     _re += c._re;
-//     _im += c._im;
-//     return *this;
-// }
-
-string Complex::to_string()
-{ // inline method
-    return std::to_string(_re) + "+" + std::to_string(_im) + "i";
+    return (real_ > other.getReal()) || (real_ == other.getReal() && image_ > other.getImage());
 }

@@ -13,43 +13,23 @@ private:
 
 public:
     Node(T val) : value(val) {}
-    // Node(const Node &other) : value(other.value)
-    // {
-    //     for (auto *child : other.children_)
-    //     {
-    //         addChild(child->getValue());
-    //     }
-    // }
     ~Node() {}
-    // {
-    //     for (auto *child : children_)
-    //     {
-    //         delete child;
-    //     }
-    // }
-    // void clearChildren()
-    // {
-    //     children_.clear();
-    // }
- void clearChildren()
+    void clearChildren()
     {
         children_.clear();
     }
     void addChild(Node<T> *child)
     {
         children_.push_back(child);
-        //std::cout << "Added child with value: " << child->getValue() << " to parent with value: " << value << std::endl;
     }
     int getCurrentChildrenNum() const
     {
         return children_.size();
     }
-
     T getValue() const
     {
         return value;
     }
-
     const std::vector<Node<T> *> &getChildren()
     {
         return children_;
