@@ -9,7 +9,7 @@ class Node
 {
 private:
     T value;
-    std::vector<Node<T> *> children_; // List of pointers to child nodes
+    std::vector<Node<T> *> children_; // vector of pointers to child nodes
 
 public:
     Node(T val) : value(val) {}
@@ -34,14 +34,14 @@ public:
     {
         return children_;
     }
-    void print(int depth = 0) const
-    {
-        std::cout << std::string(depth * 2, ' ') << value << " (" << children_.size() << " children)" << std::endl;
-        for (auto *child : children_)
-        {
-            child->print(depth + 1);
-        }
-    }
+    // void print(int depth = 0) const
+    // {
+    //     std::cout << std::string(depth * 2, ' ') << value << " (" << children_.size() << " children)" << std::endl;
+    //     for (auto *child : children_)
+    //     {
+    //         child->print(depth + 1);
+    //     }
+    // }
 };
 
 #endif // NODE_HPP

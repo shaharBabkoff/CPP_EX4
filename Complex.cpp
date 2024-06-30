@@ -2,7 +2,7 @@
 #include "Complex.hpp"
 using namespace std;
 
-Complex::Complex(double re = 0, double im = 0)
+Complex::Complex(double re , double im )
 {
     real_ = re;
     image_ = im;

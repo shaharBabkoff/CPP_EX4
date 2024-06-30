@@ -1,7 +1,7 @@
 #id:324207935 email:shbabkoff123@gmail.com
 
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -g
 SFML_FLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 VALGRIND_FLAGS = -v --leak-check=full --show-leak-kinds=all --error-exitcode=99
 

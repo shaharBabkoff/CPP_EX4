@@ -85,20 +85,20 @@ TEST_CASE("String")
         {
             // Convert tree to heap and test the order
             tree.myHeap();
-            std::vector<string> expected = {"a", "b", "c", "d", "e", "f"};
-            auto it = expected.begin();
-            for (auto node = tree.begin_heap(); node != tree.end_heap(); ++node)
-            {
-                CHECK((*node)->getValue() == *it++);
-            }
+             std::vector<string> expected = {"a", "b", "c", "d", "e", "f"};
+             auto it = expected.begin();
+             auto node = tree.begin_heap();
+            for (node = tree.begin_heap(); node != tree.end_heap(); ++node)
+             {
+                 CHECK((*node)->getValue() == *it++);
+             }
         }
 
         SUBCASE("errors")
         {
             Tree<string> tree;
             auto it = tree.begin();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 
@@ -177,22 +177,15 @@ TEST_CASE("String")
 
         SUBCASE("HeapIterator")
         {
-            // Convert tree to heap and test the order
-            tree.myHeap();
-            std::vector<string> expected = {"a", "b", "c", "d", "e", "f"};
-            auto it = expected.begin();
-            for (auto node = tree.begin_heap(); node != tree.end_heap(); ++node)
-            {
-                CHECK((*node)->getValue() == *it++);
-            }
+
+            CHECK_THROWS_WITH(tree.myHeap(), "not a binary tree");
         }
 
         SUBCASE("errors")
         {
             Tree<string> tree;
             auto it = tree.begin_bfs_scan();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 }
@@ -219,8 +212,8 @@ TEST_CASE("double")
         CHECK(n_b.getChildren().at(0)->getValue() == n_d.getValue());
         CHECK(n_b.getChildren().at(1)->getValue() == n_e.getValue());
         CHECK(n_c.getChildren().at(0)->getValue() == n_f.getValue());
-         Node<double> n_g(1.7);
-         CHECK_THROWS_WITH(tree.add_sub_node(n_b, n_g), "Cannot add more children or invalid parent/child.");
+        Node<double> n_g(1.7);
+        CHECK_THROWS_WITH(tree.add_sub_node(n_b, n_g), "Cannot add more children or invalid parent/child.");
 
         SUBCASE("PreOrderIterator")
         {
@@ -288,8 +281,7 @@ TEST_CASE("double")
         {
             Tree<string> tree;
             auto it = tree.begin_dfs_scan();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 
@@ -367,22 +359,14 @@ TEST_CASE("double")
 
         SUBCASE("HeapIterator")
         {
-            // Convert tree to heap and test the order
-            tree.myHeap();
-            std::vector<double> expected = {1.1, 1.2, 1.3, 1.4, 1.5, 1.6};
-            auto it = expected.begin();
-            for (auto node = tree.begin_heap(); node != tree.end_heap(); ++node)
-            {
-                CHECK((*node)->getValue() == *it++);
-            }
+            CHECK_THROWS_WITH(tree.myHeap(), "not a binary tree");
         }
 
         SUBCASE("errors")
         {
             Tree<string> tree;
             auto it = tree.begin_heap();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 }
@@ -473,12 +457,11 @@ TEST_CASE("Complex")
             }
         }
 
-       SUBCASE("errors")
+        SUBCASE("errors")
         {
             Tree<string> tree;
             auto it = tree.begin_post_order();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 
@@ -556,22 +539,14 @@ TEST_CASE("Complex")
 
         SUBCASE("HeapIterator")
         {
-            // Convert tree to heap and test the order
-            tree.myHeap();
-            std::vector<Complex> expected = {Complex(1, 1), Complex(2, 2), Complex(3, 3), Complex(4, 4), Complex(5, 5), Complex(6, 6)};
-            auto it = expected.begin();
-            for (auto node = tree.begin_heap(); node != tree.end_heap(); ++node)
-            {
-                CHECK((*node)->getValue() == *it++);
-            }
+            CHECK_THROWS_WITH(tree.myHeap(), "not a binary tree");
         }
 
-       SUBCASE("errors")
+        SUBCASE("errors")
         {
             Tree<string> tree;
             auto it = tree.begin_pre_order();
-                CHECK_THROWS_WITH(*it, "out of range");
-            
+            CHECK_THROWS_WITH(*it, "out of range");
         }
     }
 }
