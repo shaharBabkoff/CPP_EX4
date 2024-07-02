@@ -25,7 +25,7 @@ int main()
     tree.add_sub_node(n1, n3);
     tree.add_sub_node(n2, n4);
     tree.add_sub_node(n2, n5);
-    cout << root_node.getChildren()[0]->getChildren().size() << "  num of grand" << endl;
+    
 
     // The tree should look like:
     /**
@@ -74,7 +74,7 @@ int main()
     }
     std::cout <<std::endl;
 
-//    tree.visualize();
+   tree.visualize();
 //     Node<double> root_node2(1.1);
 //     Tree<double, 3> tree2; // Binary tree that contains doubles.
 //     tree2.add_root(root_node2);
@@ -169,12 +169,12 @@ int main()
 //     }
 //     std::cout << std::endl;
 //     tree2.visualize();
-//     // The tree should look like:
-//     /**
-//      *       root = 1.1
-//      *     /      |     \
-//      *    1.2    1.3    1.4
-//      *   /        |
-//      *  1.5      1.6
-//      */
+    // The tree should look like:
+    /**
+     *       root = 1.1
+     *     /      |     \
+     *    1.2    1.3    1.4
+     *   /        |
+     *  1.5      1.6
+     */
 }

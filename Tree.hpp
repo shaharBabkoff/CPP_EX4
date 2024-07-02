@@ -670,7 +670,7 @@ HeapIterator end_heap()
                     window.close();
             }
 
-            window.clear(sf::Color::Black);
+            window.clear(sf::Color::White);
             int maxDepth = calculateMaxDepth(root_);
             drawTree(window, root_, font, window.getSize().x / 2, 20, window.getSize().x / 4, 0, maxDepth);
             window.display();
